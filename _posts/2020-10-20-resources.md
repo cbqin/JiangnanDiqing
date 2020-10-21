@@ -13,9 +13,11 @@ title: Some Interesting Resources
 - [Information Theory, Pattern Recognition, and Neural Networks](https://www.youtube.com/playlist?list=PLruBu5BI5n4aFpG32iMbdWoRVAA-Vcso6)
 - [The Matrix Calculus You Need For Deep Learning](https://explained.ai/matrix-calculus/index.html)
 - [18.06 Linear Algebra](https://www.bilibili.com/video/av61338725/)
+- [Statistical Rethinking: A Bayesian Course](https://github.com/rmcelreath/stat_rethinking_2020)
 
 ### NLP
 - [CS 124: From Languages to Information, Spring 2020](http://web.stanford.edu/class/cs124/)
+- [CS224n: Natural Language Processing with Deep Learning, Winter 2019](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/)
 - [CS 11-747: Neural Networks for NLP, Spring 2020](http://www.phontron.com/class/nn4nlp2020/schedule.html#)
 - [CS11-737: Multilingual Natural Language Processing](http://demo.clab.cs.cmu.edu/11737fa20/)
 - [CS 520: Knowledge Graphs, Spring 2020](https://web.stanford.edu/class/cs520/)
