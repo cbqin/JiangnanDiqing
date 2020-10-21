@@ -1,7 +1,7 @@
 ---
 toc: true
 layout: post
-description: A collection of some useful and interesting resources.
+description: A collection of useful and interesting resources.
 categories: [markdown]
 title: Some Interesting Resources
 ---
@@ -17,9 +17,9 @@ title: Some Interesting Resources
 
 ### NLP
 - [CS 124: From Languages to Information, Spring 2020](http://web.stanford.edu/class/cs124/)
-- [CS224n: Natural Language Processing with Deep Learning, Winter 2019](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/)
+- [CS 224n: Natural Language Processing with Deep Learning, Winter 2019](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1194/)
 - [CS 11-747: Neural Networks for NLP, Spring 2020](http://www.phontron.com/class/nn4nlp2020/schedule.html#)
-- [CS11-737: Multilingual Natural Language Processing](http://demo.clab.cs.cmu.edu/11737fa20/)
+- [CS 11-737: Multilingual Natural Language Processing](http://demo.clab.cs.cmu.edu/11737fa20/)
 - [CS 520: Knowledge Graphs, Spring 2020](https://web.stanford.edu/class/cs520/)
 
 ### ML
