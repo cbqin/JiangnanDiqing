@@ -25,6 +25,7 @@ title: Some Interesting Resources
 - [Statistical Machine Learning, Summer 2020](https://www.tml.cs.uni-tuebingen.de/teaching/2020_statistical_learning/index.php)
 - [Probabilistic Machine Learning, Summer 2020](https://uni-tuebingen.de/en/180804)
 - [10-708: Probabilistic Graphical Models, Spring 2020](https://www.cs.cmu.edu/~epxing/Class/10708-20/index.html)
+- [Introduction to Statistical Learning Series](https://www.youtube.com/playlist?list=PLOg0ngHtcqbPTlZzRHA2ocQZqB1D_qZ5V)
 
 ### DL
 - [DS-GA 1008: Deep Learning, Spring 2020](https://atcold.github.io/pytorch-Deep-Learning/)
@@ -49,6 +50,7 @@ title: Some Interesting Resources
 - [Natural Language Processing](https://github.com/jacobeisenstein/gt-nlp-class/tree/master/notes)
 - [Pattern Recognition and Machine Learning](https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/)
 - [The Elements of Statistical Learnin](https://web.stanford.edu/~hastie/ElemStatLearn/)
+- [An Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/)
 - [百面机器学习](https://book.douban.com/subject/30285146/)
 - [百面深度学习](https://book.douban.com/subject/35043939/)
 - [Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)
