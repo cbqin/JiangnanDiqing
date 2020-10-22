@@ -33,7 +33,7 @@ title: Some Interesting Resources
 - [DS-GA 1008: Deep Learning, Spring 2020](https://atcold.github.io/pytorch-Deep-Learning/)
 - [CS294-158-SP20: Deep Unsupervised Learning, Spring 2020](https://sites.google.com/view/berkeley-cs294-158-sp20/home)
 - [CS 330: Deep Multi-Task and Meta Learning, Fall 2019](http://cs330.stanford.edu/fall2019/index.html)
-- [CS224W: Machine Learning with Graphs, Fall 2019](http://web.stanford.edu/class/cs224w/)
+- [CS 224W: Machine Learning with Graphs, Fall 2019](http://web.stanford.edu/class/cs224w/)
 - [ESE 680: Graph Neural Networks, Fall 2020](https://gnn.seas.upenn.edu/)
 - [Deep Learning and Bayesian Methods](http://deepbayes.ru/2019/)
 
@@ -61,4 +61,4 @@ title: Some Interesting Resources
 ## Algorithms
 - [Leetcode](https://leetcode-cn.com/)
 - [Algorithms](https://jeffe.cs.illinois.edu/teaching/algorithms/)
-- [cs170: Efficient Algorithms and Intractable Problems, fall 2020](https://cs170.org/)
+- [CS 170: Efficient Algorithms and Intractable Problems, fall 2020](https://cs170.org/)
