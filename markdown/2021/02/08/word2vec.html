@@ -204,7 +204,7 @@ minimize \ J &amp;= -\log{P(w_c|w_{c-m},...,w_{c-1},w_{c+1},w_{c+m})} \\
   <li>中心词用独热编码表示: $x\in{R^{\lvert V \rvert}}$</li>
   <li>输入向量转换: $v_c=\mathcal{V}x\in{R^n}$</li>
   <li>得分: $z=\mathcal{U}v_c\in{R^{\lvert V \rvert}}$</li>
-  <li>概率: $\hat{y}=softmax(z)\in{R^{\lvert V \rvert}}$. $\hat{y}<em>{c-m},…,\hat{y}</em>{c-1},\hat{y}<em>{c+1},\hat{y}</em>{c+m}$ 是与上下文中词对应的概率</li>
+  <li>概率: $\hat{y}=softmax(z)\in{R^{\lvert V \rvert}}$，$\hat{y}^{c-m},…,\hat{y}^{c-1},\hat{y}^{c+1},…,\hat{y}^{c+m}$ 是与上下文中词对应的概率</li>
   <li>比较: 独热编码表示 $y^{c-m},…,y^{c-1},y^{c+1},…,y^{c+m}$ 和对应的概率</li>
 </ol>
 
