@@ -259,17 +259,7 @@ minimize\ J &amp;= -\log{P(w_{c-m},...,w_{c-1},w_{c+1},w_{c+m}|w_c)} \\
 <h2 id="hierarchical-softmax">
 <a class="anchor" href="#hierarchical-softmax" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hierarchical Softmax</h2>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Hierarchical softmax 利用二叉树来表示词表和计算概率。每一个叶子节点代表一个词，从根结点到叶子节点有唯一的一条路径。没有输出向量，而除了根结点和叶子节点，树中的节点都对应一个需要学习的向量。输出某一叶子节点的概率为 从根结点到此叶子节点路径出现的概率，所以复杂度由 O(</td>
-      <td>V</td>
-      <td>) 变为 O(log</td>
-      <td>V</td>
-      <td>)。</td>
-    </tr>
-  </tbody>
-</table>
+<p>Hierarchical softmax 利用二叉树来表示词表和计算概率。每一个叶子节点代表一个词，从根结点到叶子节点有唯一的一条路径。没有输出向量，而除了根结点和叶子节点，树中的节点都对应一个需要学习的向量。输出某一叶子节点的概率为 从根结点到此叶子节点路径出现的概率，所以复杂度由 O($\vert$V$\vert$) 变为 O(log$\vert$V$\vert$)。</p>
 
 <p><img src="/jiangnandiqing/images/binary-tree.png" alt="" title="cbow"></p>
 
