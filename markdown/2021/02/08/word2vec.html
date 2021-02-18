@@ -133,7 +133,7 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h2"><a href="#sgns-skip-gram-with-negative-sampling">SGNS (Skip-Gram with Negative Sampling)</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#naive-softmax">Naive Softmax</a></li>
+<li class="toc-entry toc-h3"><a href="#naive-softmax-loss">Naive Softmax Loss</a></li>
 <li class="toc-entry toc-h3"><a href="#sigmoid">Sigmoid</a></li>
 <li class="toc-entry toc-h3"><a href="#negative-sampling-loss">Negative Sampling Loss</a></li>
 <li class="toc-entry toc-h3"><a href="#skip-gram-loss">Skip-Gram Loss</a></li>
@@ -319,8 +319,8 @@ minimize \thickspace J &amp;= -\log P(w \vert w_i) \\
 
 <p>在这一节，作为练习，我们要实现 SGNS 。</p>
 
-<h3 id="naive-softmax">
-<a class="anchor" href="#naive-softmax" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naive Softmax</h3>
+<h3 id="naive-softmax-loss">
+<a class="anchor" href="#naive-softmax-loss" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naive Softmax Loss</h3>
 
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>∈</mo><msup><mi>R</mi><mrow><mi>V</mi><mo>×</mo><mi>d</mi></mrow></msup><mspace linebreak="newline"></mspace><mi>U</mi><mo>∈</mo><msup><mi>R</mi><mrow><mi>V</mi><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">V \in R^{V \times d} \\
 U \in R^{V \times d}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8991079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span><span class="mbin mtight">×</span><span class="mord mathdefault mtight">d</span></span></span></span></span></span></span></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8991079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span><span class="mbin mtight">×</span><span class="mord mathdefault mtight">d</span></span></span></span></span></span></span></span></span></span></span></span></span>
