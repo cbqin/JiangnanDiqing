@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Vector Semantics and Embeddings | jiangnandiqing</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Vector Semantics and Embeddings" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Vector Semantics and Embeddings" />
+<meta property="og:description" content="Vector Semantics and Embeddings" />
+<link rel="canonical" href="https://cbqin.github.io/jiangnandiqing/markdown/2021/02/20/vector-semantics-and-embeddings.html" />
+<meta property="og:url" content="https://cbqin.github.io/jiangnandiqing/markdown/2021/02/20/vector-semantics-and-embeddings.html" />
+<meta property="og:site_name" content="jiangnandiqing" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-20T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://cbqin.github.io/jiangnandiqing/markdown/2021/02/20/vector-semantics-and-embeddings.html","@type":"BlogPosting","headline":"Vector Semantics and Embeddings","dateModified":"2021-02-20T00:00:00-06:00","datePublished":"2021-02-20T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cbqin.github.io/jiangnandiqing/markdown/2021/02/20/vector-semantics-and-embeddings.html"},"description":"Vector Semantics and Embeddings","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/jiangnandiqing/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cbqin.github.io/jiangnandiqing/feed.xml" title="jiangnandiqing" /><link rel="shortcut icon" type="image/x-icon" href="/jiangnandiqing/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/jiangnandiqing/">jiangnandiqing</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/jiangnandiqing/about/">About Me</a><a class="page-link" href="/jiangnandiqing/search/">Search</a><a class="page-link" href="/jiangnandiqing/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Vector Semantics and Embeddings</h1><p class="page-description">Vector Semantics and Embeddings</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-02-20T00:00:00-06:00" itemprop="datePublished">
+        Feb 20, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/jiangnandiqing/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#distributional-hypothesis">Distributional Hypothesis</a></li>
+<li class="toc-entry toc-h2"><a href="#lexical-semantics">Lexical Semantics</a></li>
+<li class="toc-entry toc-h2"><a href="#vector-semantics">Vector Semantics</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#co-occurrence-matrix">Co-occurrence Matrix</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#documents-as-vectors">Documents as vectors</a></li>
+<li class="toc-entry toc-h4"><a href="#words-as-vectors-document-dimensions">Words as vectors: document dimensions</a></li>
+<li class="toc-entry toc-h4"><a href="#words-as-vectors-word-dimensions">Words as vectors: word dimensions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#tf-idf">TF-IDF</a></li>
+<li class="toc-entry toc-h3"><a href="#positive-pointwise-mutual-information-ppmi">Positive Pointwise Mutual Information (PPMI)</a></li>
+<li class="toc-entry toc-h3"><a href="#word2vec">Word2vec</a></li>
+<li class="toc-entry toc-h3"><a href="#glove">Glove</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#something-about-embeddings">Something About Embeddings</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#visualizing">Visualizing</a></li>
+<li class="toc-entry toc-h3"><a href="#semantics-properties">Semantics Properties</a></li>
+<li class="toc-entry toc-h3"><a href="#bias">Bias</a></li>
+</ul>
+</li>
+</ul><h2 id="distributional-hypothesis">
+<a class="anchor" href="#distributional-hypothesis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Distributional Hypothesis</h2>
+
+<p><strong>分布假设</strong>。单词分布的相似度和单词意义的相似度的关系。</p>
+
+<h2 id="lexical-semantics">
+<a class="anchor" href="#lexical-semantics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lexical Semantics</h2>
+
+<p><strong>词汇语义</strong>。语言学中从多个方面考察单词的语义。</p>
+
+<ul>
+  <li>
+    <p>Lemmas and Senses</p>
+
+    <blockquote>
+      <p>在形态学和词典编纂中，引理是一组单词的规范形式，词典形式或引用形式。</p>
+    </blockquote>
+
+    <p>对于每一种引用形式，都可以有多种语义，称为一词多义，每一种语义称作一个 <strong>word scene</strong> 。</p>
+  </li>
+  <li>
+    <p>Word Synonymy</p>
+
+    <p><strong>同义</strong>。从 scene 的角度来讲，如果两个单词的语义之一是一致的，那么可以说这两个单词是同义的。从 word 的角度看，同义的一个更正式的定义可以是：如果两个单词可以在任何句子中相互替换而不改变句子的真实条件，则该两个单词是同义词。</p>
+
+    <p>但是，也许没有真正的同义词，因为词汇的语义的差异总是和在语言学上的形态的差异相关联。比如，<em>water</em> 和 $h_2o$ 都是水的意思，但是 $h_2o$ 一般出现在科学相关的文献，而 <em>water</em> 更适合于平常的文本中，这种类型的区别也是语义的一部分，所以说同义真实的意思是大概意思一样，并非完全一致。或许可以这么想：在已知已经存在一个词可以描述想表达的意思，那么为什么还要创造一个同样语义的新词？原因可能是旧词的语义和想表达的语义有些许差别，需要一个新词来表示。</p>
+  </li>
+  <li>
+    <p>Word Similarity</p>
+
+    <p><strong>相似</strong>。相似性关注的是单词本身而不是单词的语义。比如 dog 和 cat。</p>
+  </li>
+  <li>
+    <p>Word Relatedness</p>
+
+    <p><strong>关联性</strong>。关联性不要求相似，更关注单词之间的关系、联系。比如 water 和 cup，两者不相似，但是和同一事件相关–喝水。一种较为常见的关系是 <strong>semantic field</strong> 。semantic field 是指一组单词，覆盖特定的语义域并且彼此之间具有结构化关系。比如，对于 hospital 这个 semantic field，可以包含 surgeon, scalpel, nurse, anesthetic, hospital 这些词。Semantic field 与 topic model 相关，二者都可以无监督的学习文本中的主题结构，非常有用。</p>
+
+    <p>这么说来，常说的主题以及主题之间的关系，其实就是单词之间的关联性和结构。</p>
+  </li>
+  <li>
+    <p>Semantic Frames and Roles</p>
+
+    <p>Semantic frames 和 semantic field 相似，指的是表示特定事件的不同观点和参与者的一组单词。比如在商业交易中，有 buy，sell，pay 等动作，每个动作也代表着一个角色，分别是 buyer，seller，money。</p>
+  </li>
+  <li>
+    <p>Connotation</p>
+
+    <p><strong>蕴涵</strong>或者<strong>情感意义</strong>。褒义、贬义或者积极、消极，在加一个中立。情感分析也是 nlp 中一个重要的方向。</p>
+
+    <p>如何衡量一个词所蕴涵的情感？Osgood 从三个方面来给单词打分：</p>
+
+    <ul>
+      <li>valence: the pleasantness of the stimulus，刺激的愉悦感</li>
+      <li>arousal: the intensity of emotion provoked by the stimulus，被刺激所引起的感情强度</li>
+      <li>dominance: the degree of control exerted by the stimulus，刺激所施加的控制程度</li>
+    </ul>
+
+    <p>通过对一个单词从以上三个方面的衡量，就可以得到一个三维空间中的点，这是历史上关于向量语义的第一次表述，突破性的想法💡！！</p>
+  </li>
+</ul>
+
+<h2 id="vector-semantics">
+<a class="anchor" href="#vector-semantics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Vector Semantics</h2>
+
+<p><strong>向量语义</strong>。实例化分布假设，具有相似上下文的具有相似的含义，根据单词在文本中的分布学习单词的含义。单词的含义也称为词嵌入，即 Embedding，原因是将其嵌入到某个向量空间中。这种获得单词表示的方法是属于表示学习（Presentation Learning），区别于特征工程中人工创造的表示。</p>
+
+<h3 id="co-occurrence-matrix">
+<a class="anchor" href="#co-occurrence-matrix" aria-hidden="true"><span class="octicon octicon-link"></span></a>Co-occurrence Matrix</h3>
+
+<p>基本上，向量的获得都基于共现矩阵的想法，主要有两种矩阵：term-document matrix 和 term-term matrix。</p>
+
+<h4 id="documents-as-vectors">
+<a class="anchor" href="#documents-as-vectors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documents as vectors</h4>
+
+<p>在信息检索中，要召回文档，那么如何表示文档呢？文档由单词组成，我们可以用文档中各个单词出现的频次来表示文档，相似的文档拥有相似的单词分布。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">doc_1</th>
+      <th style="text-align: center">doc_2</th>
+      <th style="text-align: center">doc_3</th>
+      <th style="text-align: center">doc_4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">word_1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">7</td>
+      <td style="text-align: center">11</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">word_2</td>
+      <td style="text-align: center">114</td>
+      <td style="text-align: center">80</td>
+      <td style="text-align: center">62</td>
+      <td style="text-align: center">89</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">word_3</td>
+      <td style="text-align: center">36</td>
+      <td style="text-align: center">58</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">word_4</td>
+      <td style="text-align: center">20</td>
+      <td style="text-align: center">15</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>对于每一列，就是相应文档的向量表示，维度是 $\lvert V \rvert$ ，词表的大小，并且这个向量是稀疏的。</p>
+
+<h4 id="words-as-vectors-document-dimensions">
+<a class="anchor" href="#words-as-vectors-document-dimensions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Words as vectors: document dimensions</h4>
+
+<p>在上表中，如果按行来看，每一行都可以看作是一个单词的向量表示，维度是 $\lvert D \rvert$，语料库文档的数目，并且这个向量也是稀疏的。相似的词也倾向于出现在相似的文档中。Term-document matrix 既可以用来表示文档也可以用来表示单词。</p>
+
+<h4 id="words-as-vectors-word-dimensions">
+<a class="anchor" href="#words-as-vectors-word-dimensions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Words as vectors: word dimensions</h4>
+
+<p>可不可以用词来衡量词呢？显然可以，这就是 Term-term matrix 的想法，在一个小窗口内，两个词共现的频次。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">aardvark</th>
+      <th style="text-align: center">…</th>
+      <th style="text-align: center">computer</th>
+      <th style="text-align: center">data</th>
+      <th style="text-align: center">result</th>
+      <th style="text-align: center">pie</th>
+      <th style="text-align: center">sugar</th>
+      <th style="text-align: center">…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">cherry</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">8</td>
+      <td style="text-align: center">9</td>
+      <td style="text-align: center">442</td>
+      <td style="text-align: center">25</td>
+      <td style="text-align: center">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">strawberry</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">60</td>
+      <td style="text-align: center">19</td>
+      <td style="text-align: center">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">digital</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">1670</td>
+      <td style="text-align: center">1683</td>
+      <td style="text-align: center">85</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">information</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">…</td>
+      <td style="text-align: center">3325</td>
+      <td style="text-align: center">3982</td>
+      <td style="text-align: center">378</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">13</td>
+      <td style="text-align: center">…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>每一个向量的维度是 $\lvert V \rvert$ ，也是稀疏。</p>
+
+<h3 id="tf-idf">
+<a class="anchor" href="#tf-idf" aria-hidden="true"><span class="octicon octicon-link"></span></a>TF-IDF</h3>
+
+<p>共现矩阵，不管是 term-document 还是 term-term ，其中每一项都是原始频次。原始频次并不能很好地衡量词之间的关系。对于一个词来说，如果有一个词和它的共现频率很高，那么一般情况下这个词对衡量它是起重要作用的；但是，如果这个词过于频繁的出现，那么这个词对于衡量其共现的词就没那么重要了。解决这个问题的方法有两个：TF-IDF 和 PPMI。</p>
+
+<p>TF-IDF 基于 term-document matrix。</p>
+
+<ul>
+  <li>
+    <p>Term Frequency</p>
+
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><msub><mi>f</mi><mrow><mi>t</mi><mo separator="true">,</mo><mi>d</mi></mrow></msub><mo>=</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>c</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>t</mi><mo stretchy="false">(</mo><mi>t</mi><mo separator="true">,</mo><mi>d</mi><mo stretchy="false">)</mo><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">tf_{t,d}=log(count(t,d)+1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span>
+  </li>
+  <li>
+    <p>Inverse Doucument Frequency</p>
+
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>d</mi><msub><mi>f</mi><mi>t</mi></msub><mo>=</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mfrac><mi>N</mi><mrow><mi>d</mi><msub><mi>f</mi><mi>t</mi></msub></mrow></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">idf_t=log(\frac{N}{df_t})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.2407700000000004em;vertical-align:-0.8804400000000001em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></span>
+  </li>
+  <li>
+    <p>TF-IDF</p>
+
+    <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>t</mi><mo separator="true">,</mo><mi>d</mi></mrow></msub><mo>=</mo><mi>t</mi><msub><mi>f</mi><mrow><mi>t</mi><mo separator="true">,</mo><mi>d</mi></mrow></msub><mo>×</mo><mi>i</mi><mi>d</mi><msub><mi>f</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">w_{t,d}=tf_{t,d} \times idf_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">t</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathdefault mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>
+  </li>
+</ul>
+
+<h3 id="positive-pointwise-mutual-information-ppmi">
+<a class="anchor" href="#positive-pointwise-mutual-information-ppmi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Positive Pointwise Mutual Information (PPMI)</h3>
+
+<p>互信息衡量两个变量间的依赖程度，数值上是点间互信息的期望。直观上，互信息度量 X 和 Y 共享的信息：它度量知道这两个变量其中一个，对另一个不确定度减少的程度。在 NLP 中，可以用点间互信息来度量两个词的相关程度。</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>P</mi><mi>M</mi><mi>I</mi><mo stretchy="false">(</mo><mi>w</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>w</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></mfrac><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">PPMI(w,c)=max(log\frac{P(w,c)}{P(w)P(c)},0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></span>
+
+<p>罕见词倾向于高PMI值。</p>
+
+<p>一般会用 SVD 进行降维。</p>
+
+<h3 id="word2vec">
+<a class="anchor" href="#word2vec" aria-hidden="true"><span class="octicon octicon-link"></span></a>Word2vec</h3>
+
+<p>见 word2vec.md</p>
+
+<h3 id="glove">
+<a class="anchor" href="#glove" aria-hidden="true"><span class="octicon octicon-link"></span></a>Glove</h3>
+
+<p>见 glove.md</p>
+
+<h2 id="something-about-embeddings">
+<a class="anchor" href="#something-about-embeddings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Something About Embeddings</h2>
+
+<h3 id="visualizing">
+<a class="anchor" href="#visualizing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visualizing</h3>
+
+<ul>
+  <li>聚类</li>
+  <li>t-SNE</li>
+  <li>列出最相似的词</li>
+</ul>
+
+<h3 id="semantics-properties">
+<a class="anchor" href="#semantics-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Semantics Properties</h3>
+
+<ul>
+  <li>相似与相关：窗口小趋向相似，窗口大趋向相关</li>
+  <li>一阶共现：相邻；二阶共现：相邻相似</li>
+  <li>推理</li>
+  <li>不同时间段的文本得到的向量随着时间是变化的</li>
+</ul>
+
+<h3 id="bias">
+<a class="anchor" href="#bias" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bias</h3>
+
+<ul>
+  <li>性别</li>
+  <li>职业</li>
+</ul>
+
+  </div><a class="u-url" href="/jiangnandiqing/markdown/2021/02/20/vector-semantics-and-embeddings.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/jiangnandiqing/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/jiangnandiqing/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/jiangnandiqing/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Road To M$.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/cbqin" title="cbqin"><svg class="svg-icon grey"><use xlink:href="/jiangnandiqing/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/jiangnandiqing/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
